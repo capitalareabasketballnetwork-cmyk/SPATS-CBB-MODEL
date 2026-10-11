@@ -55,7 +55,7 @@ def process(yr):
    if r["team_name"]=="Michigan State Spartans" or "bonke" in r["player_name"].lower():
     print("D1_MSU",r["player_name"],r["team_name"],r["spats_rating"])
  return dict(season=yr,division1_teams=len(ids),teams_with_player_data=len({r["team_id"] for r in rows}),players=len(rows),excluded_teams=len(excluded))
-years=[int(x) for x in sys.argv[1:]] or list(range(2003,2027))
+years=[int(x) for x in sys.argv[1:]] or list(range(2005,2027))
 results=[process(y) for y in years]
 with (dest/"manifest.csv").open("w",newline="") as f:
  w=csv.DictWriter(f,fieldnames=list(results[0]));w.writeheader();w.writerows(results)
