@@ -1,0 +1,13 @@
+name: Audit D1 membership source
+on:
+  push:
+    paths:
+      - 'scripts/audit_division1_membership.py'
+      - '.github/workflows/audit-d1.yml'
+  workflow_dispatch:
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python scripts/audit_division1_membership.py
