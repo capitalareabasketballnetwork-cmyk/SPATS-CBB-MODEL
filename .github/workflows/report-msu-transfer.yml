@@ -1,0 +1,12 @@
+name: Report Michigan State and transfer value
+on:
+  push:
+    paths:
+      - 'scripts/report_msu_transfer_2026.py'
+  workflow_dispatch:
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python scripts/report_msu_transfer_2026.py
