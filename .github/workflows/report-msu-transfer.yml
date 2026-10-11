@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - 'scripts/report_msu_transfer_2026.py'
+      - '.github/workflows/report-msu-transfer.yml'
   workflow_dispatch:
 jobs:
   report:
