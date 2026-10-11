@@ -1,0 +1,23 @@
+name: Build Division I SPATS ratings
+on:
+  push:
+    paths:
+      - 'scripts/build_d1_player_percentiles.py'
+      - '.github/workflows/build-d1-ratings.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Recalculate all seasons using season-specific Division I membership
+        run: python scripts/build_d1_player_percentiles.py
+      - name: Commit verified Division I data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f data/processed/d1_player_percentiles/
+          git diff --cached --quiet || (git commit -m "Store season-specific Division I-only SPATS ratings" && git push)
