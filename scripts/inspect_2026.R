@@ -1,0 +1,5 @@
+library(hoopR)
+d <- load_mbb_player_box(seasons=2026)
+cat("Rows:", nrow(d), "Columns:", ncol(d), "\n")
+print(names(d))
+print(utils::head(d, 2))
