@@ -1,9 +1,9 @@
-"""Audit season-specific ESPN Division I membership before rebuilding SPATS ratings."""
 import json,urllib.request
+base="https://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/seasons"
 for yr in (2005,2015,2025,2026):
- url=f"https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams?groups=50&limit=500&season={yr}"
+ url=f"{base}/{yr}/types/2/groups/50/teams?limit=500"
  try:
-  with urllib.request.urlopen(urllib.request.Request(url,headers={"User-Agent":"SPATS-research/1.0"}),timeout=30) as f: d=json.load(f)
-  teams=[t["team"] for s in d["sports"] for l in s["leagues"] for t in l["teams"]]
-  print("AUDIT",yr,"count",len(teams),"ids",",".join(t["id"] for t in teams[:8]),"shaw",any("Shaw" in t.get("displayName","") for t in teams))
- except Exception as e:print("ERROR",yr,str(e))
+  with urllib.request.urlopen(urllib.request.Request(url,headers={"User-Agent":"SPATS/1.0"}),timeout=40) as f:d=json.load(f)
+  ids=[str(t.get("$ref","")).split("/teams/")[-1].split("?")[0] for t in d.get("items",[])]
+  print("COREAUDIT",yr,"count",d.get("count"),"items",len(ids),"ids",",".join(ids[:10]),"url",url)
+ except Exception as e:print("COREERROR",yr,str(e))
