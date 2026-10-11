@@ -1,0 +1,13 @@
+name: Coen Carr SPATS progression
+on:
+  push:
+    paths:
+      - scripts/report_coen_carr_progress.py
+      - .github/workflows/report-coen-carr.yml
+  workflow_dispatch:
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python scripts/report_coen_carr_progress.py
