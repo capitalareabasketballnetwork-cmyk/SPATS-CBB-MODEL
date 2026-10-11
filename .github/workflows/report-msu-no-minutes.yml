@@ -1,0 +1,13 @@
+name: MSU no-minutes rating report
+on:
+  push:
+    paths:
+      - 'scripts/report_msu_no_minutes_2026.py'
+      - '.github/workflows/report-msu-no-minutes.yml'
+  workflow_dispatch:
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python scripts/report_msu_no_minutes_2026.py
