@@ -1,0 +1,11 @@
+name: Audit prior season wins
+on:
+  push:
+    paths: [scripts/audit_win_pct.py, .github/workflows/audit-win-pct.yml]
+  workflow_dispatch:
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python scripts/audit_win_pct.py
