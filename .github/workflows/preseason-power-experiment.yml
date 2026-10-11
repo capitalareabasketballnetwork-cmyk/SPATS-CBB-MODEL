@@ -1,0 +1,18 @@
+name: SPATS preseason power experiment
+on:
+  push:
+    paths: [scripts/preseason_power_experiment.py, .github/workflows/preseason-power-experiment.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  calculate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python scripts/preseason_power_experiment.py
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f data/processed/2027_preseason_power_experiment.csv
+          git diff --cached --quiet || (git commit -m "Store SPATS preseason power experiment" && git push)
