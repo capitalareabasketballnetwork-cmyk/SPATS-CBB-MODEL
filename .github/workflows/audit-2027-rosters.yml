@@ -1,0 +1,13 @@
+name: Audit 2027 roster API
+on:
+  push:
+    paths:
+      - scripts/audit_2027_rosters.py
+      - .github/workflows/audit-2027-rosters.yml
+  workflow_dispatch:
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python scripts/audit_2027_rosters.py
