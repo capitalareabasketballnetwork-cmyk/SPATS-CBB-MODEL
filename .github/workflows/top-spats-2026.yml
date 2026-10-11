@@ -1,0 +1,13 @@
+name: Top SPATS players 2026
+on:
+  push:
+    paths:
+      - 'scripts/top_spats_2026.py'
+      - '.github/workflows/top-spats-2026.yml'
+  workflow_dispatch:
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python scripts/top_spats_2026.py
