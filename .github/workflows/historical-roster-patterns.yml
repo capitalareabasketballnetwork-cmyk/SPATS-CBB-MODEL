@@ -1,0 +1,18 @@
+name: Historical roster pattern study
+on:
+  push:
+    paths: [scripts/historical_roster_patterns.py, .github/workflows/historical-roster-patterns.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  study:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python scripts/historical_roster_patterns.py
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f data/processed/historical_roster_patterns_2018_2026.csv
+          git diff --cached --quiet || (git commit -m "Save historical roster pattern study" && git push)
